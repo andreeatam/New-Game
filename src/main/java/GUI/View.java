@@ -10,12 +10,11 @@ import java.awt.event.ActionListener;
 public class View extends JFrame{
 
     private  JFrame frame;
-
     private Polinom raspunsCorect1, raspunsCorect2;
-    private final Color culButoane = new Color(155,6,60);
-    private final Color culLabel= new Color(100,5,60);
+    private final Color culButoane = new Color(0,250,154);
+    private final Color culLabel= new Color(0,0,255);
 
-    private final Color culTextField = new Color(205,70,60);
+    private final Color culTextField = new Color(65,105,225);
     private static final Font bigFont = new Font("PT Sans",Font.PLAIN,26);
 
     public JLabel lPolinom1, lPolinom2;
@@ -24,6 +23,10 @@ public class View extends JFrame{
     public JButton bAdunare, bScadere,bInmultire, bImpartire,bDerivare,bIntegrare,bValidRasp,bRanking,bTokens,bClasament;
 
     Controller controller = new Controller(this);
+
+    public JFrame getFrame(){
+        return frame;
+    }
 
 
     public Polinom gettPolinom1() {
@@ -89,11 +92,11 @@ public class View extends JFrame{
         }
         return p;
     }
-    public View(String name){
-        frame = new JFrame(name);
+    public View(){
+        frame = new JFrame();
         frame.getContentPane().setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1600,900);
+        frame.setSize(470,600);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         this.prepareGui();
@@ -136,8 +139,6 @@ public class View extends JFrame{
         lPolinom2 = creazaLabel("Polinom 2: ", bigFont);
         tPolinom2 = creazaTextField(30);
 
-        tRezultat = creazaTextField(60);
-        tRezultat2 = creazaTextField(60);
 
         bAdunare=creazaButon(null,"adunare","  +  ",culButoane);
         bScadere=creazaButon(null,"scadere","  -  ",culButoane);
@@ -146,6 +147,10 @@ public class View extends JFrame{
         bDerivare=creazaButon(null,"derivare","  '  ",culButoane);
         bIntegrare=creazaButon(null,"integrare",null,culButoane);
         bIntegrare.setIcon(new ImageIcon("image.png"));
+
+        tRezultat = creazaTextField(30);
+
+        tRezultat2 = creazaTextField(30);
 
         bValidRasp=creazaButon(null,"valideaza raspuns","valideaza raspunsul tau",culButoane);
         bRanking=creazaButon(null,"ranking (xp)", "vezi ranking (xp)", culButoane);
@@ -169,7 +174,6 @@ public class View extends JFrame{
 
         frame.add(tRezultat);
         frame.add(tRezultat2);
-
 
         frame.add(bValidRasp);
         frame.add(bRanking);
