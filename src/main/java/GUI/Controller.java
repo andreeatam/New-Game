@@ -15,10 +15,11 @@ public class Controller implements ActionListener {
     private boolean isBImpartireClicked, isBDerivareClicked, isBIntegrareClicked;
     private boolean isBValidClicked, isBRankingClicked, isBTokensClicked, isBClasamentClicked;
     private final Operations op = new Operations();
-    User user = new User();
+    public static User user = new User();
     final String DB_URL = "jdbc:mysql://localhost:3306/game";
     final String USERNAME = "root";
     final String PASSWORD = "Andreea31!";
+
 
     public Controller(View v) {
         this.view = v;
@@ -27,6 +28,8 @@ public class Controller implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
+
+        boolean areRaspCorect = false;
 
         view.bAdunare.addActionListener(this);
         view.bScadere.addActionListener(this);
@@ -54,6 +57,14 @@ public class Controller implements ActionListener {
             isBIntegrareClicked = true;
         } else if (e.getSource() == view.bValidRasp) {
             isBValidClicked = true;
+        } else if (e.getSource() == view. bRanking) {
+            isBRankingClicked = true;
+        } else if (e.getSource() == view.bTokens) {
+            isBTokensClicked = true;
+        } else if (e.getSource() == view.bClasament) {
+            isBClasamentClicked = true;
+        } else {
+            return;
         }
 
 
@@ -64,6 +75,7 @@ public class Controller implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Raspuns corect");
                     user.setTokens(user.getTokens() + 2);
                     user.setRanking(user.getRanking() + 2);
+                    areRaspCorect = true;
                 } else
                     JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este: " + op.aduna(view.gettPolinom1(), view.gettPolinom2()).toString());
                 isBAdunareClicked = false; //resetam flag urile
@@ -75,6 +87,7 @@ public class Controller implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Raspuns corect");
                     user.setTokens(user.getTokens() + 2);
                     user.setRanking(user.getRanking() + 2);
+                    areRaspCorect = true;
                 } else
                     JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este: " + op.scadere(view.gettPolinom1(), view.gettPolinom2()).toString());
                 isBScadereClicked = false;
@@ -86,6 +99,7 @@ public class Controller implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Raspuns corect");
                     user.setTokens(user.getTokens() + 5);
                     user.setRanking(user.getRanking() + 5);
+                    areRaspCorect = true;
                 } else
                     JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este: " + op.inmultire(view.gettPolinom1(), view.gettPolinom2()).toString());
                 isBInmultireClicked = false; //resetam flag urile
@@ -99,6 +113,7 @@ public class Controller implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Raspuns corect");
                     user.setTokens(user.getTokens() + 8);
                     user.setRanking(user.getRanking() + 8);
+                    areRaspCorect = true;
                 } else
                     JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este: " + "cat: " + view.getRaspunsCorect1().toString() + " ,rest: " + view.getRaspunsCorect2().toString());
                 isBImpartireClicked = false; //resetam flag urile
@@ -111,6 +126,7 @@ public class Controller implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Raspuns corect");
                     user.setTokens(user.getTokens() + 6);
                     user.setRanking(user.getRanking() + 6);
+                    areRaspCorect = true;
                 } else
                     JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este P1: " + op.derivare(view.gettPolinom1()) + " ,P2: " + op.derivare(view.gettPolinom2()));
                 isBDerivareClicked = false; //resetam flag urile
@@ -123,87 +139,116 @@ public class Controller implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Raspuns corect");
                     user.setTokens(user.getTokens() + 8);
                     user.setRanking(user.getRanking() + 8);
+                    areRaspCorect = true;
                 } else
                     JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este P1: " + op.integrare(view.gettPolinom1()) + " P2: " + op.integrare(view.gettPolinom2()));
                 isBIntegrareClicked = false; //resetam flag urile
             }
 
-            //updateScorInDB();
+            if (areRaspCorect) {
+                updateScorInDB();
+                areRaspCorect = false;
+            }
             isBValidClicked = false;
+            view.bValidRasp.removeActionListener(this);
+
         }
 
-        if(isBRankingClicked){
-            //getRankingFromDB();
-            isBRankingClicked=false;
+        if (isBRankingClicked) {
+            getRankingFromDB();
+            isBRankingClicked = false;
+            view.bRanking.removeActionListener(this);
         }
 
-        if(isBTokensClicked){
-            //getTokensFromDB();
-            isBTokensClicked=false;
+        if (isBTokensClicked) {
+            getTokensFromDB();
+            isBTokensClicked = false;
+            view.bTokens.removeActionListener(this);
         }
 
-        if(isBClasamentClicked){
+        if (isBClasamentClicked) {
             //showFirst5Users();
-            isBClasamentClicked=false;
+            isBClasamentClicked = false;
+            view.bClasament.removeActionListener(this);
+        }
+
+    }
+
+
+    public void getRankingFromDB() {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD); //connection succesfully
+
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT ranking FROM Users WHERE username=?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, user.username);
+
+            ResultSet result = preparedStatement.executeQuery();
+
+            if (result.next()) {
+                String returnedNumber=result.getString("ranking");
+                JOptionPane.showMessageDialog(null, "Rankingul tau este: " + returnedNumber);
+
+            }
+
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void getTokensFromDB() {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD); //connection succesfully
+
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT tokens FROM Users WHERE username=?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, user.username);
+
+            ResultSet result = preparedStatement.executeQuery();
+            if (result.next()) {
+                String returnedNumber=result.getString("tokens");
+                JOptionPane.showMessageDialog(null, "Nr total de tokens acumulati este:  " + returnedNumber);
+            }
+
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-//    public String extractUserByUsername(String usernameName) {
-//        try {
-//            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD); //connection succesfully
-//
-//            Statement stmt = conn.createStatement();
-//            String sql = "SELECT * FROM Users WHERE username=?";
-//            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-//
-//            preparedStatement.setString(1, usernameName);
-//
-//            ResultSet resultSet=preparedStatement.executeQuery();
-//            if (resultSet.next()) {
-//                user.firstName = resultSet.getString("firstName");
-//                user.lastName = resultSet.getString("lastName");
-//                user.username = resultSet.getString("username");
-//                user.password = resultSet.getString("password");
-//                user.city = resultSet.getString("city");
-//                user.tokens= Integer.valueOf(resultSet.getString("tokens"));
-//                user.ranking= Integer.valueOf(resultSet.getString("ranking"));
-//
-//                return user.username;
-//            }
-//
-//            stmt.close();
-//            conn.close();
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//
-//        }
-//
-//        return null;
-//    }
+    public void updateScorInDB(){
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD); //connection succesfully
 
-//    public void getRankingFromDB() {
-//        try {
-//            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD); //connection succesfully
-//
-//            Statement stmt = conn.createStatement();
-//            String sql = "SELECT ranking FROM Users WHERE username=?";
-//            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-//            preparedStatement.setString(1, extractUserByUsername(user.getUsername()));
-//
-//            ResultSet result = preparedStatement.executeQuery();
-//            if (result.next()) {
-//                String returnedNumber=result.getString("ranking");
-//                JOptionPane.showMessageDialog(null, "Rankingul tau este: " + returnedNumber);
-//
-//            }
-//
-//            stmt.close();
-//            conn.close();
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
+            Statement stmt = conn.createStatement();
+            String sql = "UPDATE Users SET tokens=?, ranking=? WHERE username=?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setString(1, String.valueOf(user.getTokens()));
+            preparedStatement.setString(2, String.valueOf(user.getRanking()));
+            preparedStatement.setString(3, String.valueOf(user.username));
+
+            System.out.println(preparedStatement);
+
+            int rowsUpdated= preparedStatement.executeUpdate();
+            if(rowsUpdated>0){
+                System.out.println("Scorul a fost actualizat!");
+            }
+
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -1,3 +1,4 @@
+import GUI.Controller;
 import GUI.View;
 import Model.User;
 
@@ -15,9 +16,6 @@ public class Login extends JDialog {
     private JButton cancelButton;
     private JButton clickToRegisterButton;
     private JPanel JPanel0;
-
-    public User user;
-
 
     public JPanel getPanel0() {
         return JPanel0;
@@ -48,6 +46,7 @@ public class Login extends JDialog {
                 System.exit(0);
             }
         });
+
         clickToRegisterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -103,25 +102,9 @@ public class Login extends JDialog {
         return ok;
     }
 
-//    private void Validare_dateComplete(){
-//        String username=tfUsername.getText();
-//        String password=String.valueOf(pfPassword.getPassword());
-
-//        if(user.username.equals(username) && (user.password.equals(password))){
-//            JOptionPane.showMessageDialog(this, "Login creat cu succes!");
-//            dispose();
-//            JFrame frame = new JFrame("Calculator de Polinoame");
-//            frame.setSize(300,300);
-//            frame.setContentPane(new View().getContentPane());
-//            frame.setLocationRelativeTo(null);
-//            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//            frame.pack();
-//        }
-    //}
-
     private User verifyUser(){
         User user=null;
-        String username=tfUsername.getText();
+        String usernameLogin=tfUsername.getText();
         String password=String.valueOf(pfPassword.getPassword());
 
         final String DB_URL = "jdbc:mysql://localhost:3306/game";
@@ -134,18 +117,19 @@ public class Login extends JDialog {
             Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM Users WHERE username=? AND password=?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, username);
+            preparedStatement.setString(1, usernameLogin);
             preparedStatement.setString(2, password);
 
            try {
                ResultSet resultSet=preparedStatement.executeQuery();
                if (resultSet.next()) {
-                   user = new User();
-                   user.firstName = resultSet.getString("firstName");
-                   user.lastName = resultSet.getString("lastName");
-                   user.username = resultSet.getString("username");
-                   user.password = resultSet.getString("password");
-                   user.city = resultSet.getString("city");
+                   Controller.user.firstName = resultSet.getString("firstName");
+                   Controller.user.lastName = resultSet.getString("lastName");
+                   Controller.user.username = resultSet.getString("username");
+                   Controller.user.password = resultSet.getString("password");
+                   Controller.user.city = resultSet.getString("city");
+                   Controller.user.tokens = Integer.parseInt(resultSet.getString("tokens"));
+                   Controller.user.ranking = Integer.parseInt(resultSet.getString("ranking"));
 
                }
            }catch (Exception e){
@@ -161,8 +145,10 @@ public class Login extends JDialog {
             e.printStackTrace();
         }
 
-        return user;
+        return Controller.user;
 
     }
+
+
 
 }
