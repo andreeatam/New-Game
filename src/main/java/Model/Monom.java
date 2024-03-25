@@ -1,8 +1,13 @@
-package Polynomial;
+package Model;
 
 public class Monom {
     private double coeficient;
     private int putere;
+
+    public Monom(double coeficient, int putere) {
+        this.coeficient = coeficient;
+        this.putere = putere;
+    }
 
     public double getCoeficient() {
         return coeficient;
@@ -16,9 +21,9 @@ public class Monom {
         return putere;
     }
 
-    public Monom(double coeficient, int putere) {
-        this.coeficient = coeficient;
-        this.putere = putere;
+    @Override
+    public String toString() {
+        return coeficient + "x^" + putere;
     }
 
 }

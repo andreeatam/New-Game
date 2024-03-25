@@ -1,6 +1,4 @@
-package Results;
-
-import Polynomial.Polinom;
+package Model;
 
 public class Result {
     public Polinom cat;

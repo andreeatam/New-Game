@@ -1,6 +1,5 @@
 package Model;
 
-
 public class User {
 
     public String firstName;
@@ -9,8 +8,14 @@ public class User {
     public String password;
     public String city;
     public Integer tokens=0;
-    public Integer ranking=0;
-    public User() {}
+    public User(String firstName, String lastName, String username, String password, String city, int tokens) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.city = city;
+        this.tokens = tokens;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -60,11 +65,4 @@ public class User {
         this.tokens = tokens;
     }
 
-    public Integer getRanking() {
-        return ranking;
-    }
-
-    public void setRanking(Integer ranking) {
-        this.ranking = ranking;
-    }
 }
