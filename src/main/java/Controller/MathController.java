@@ -22,11 +22,9 @@ public class MathController {
     public Polinom inmultire(Polinom polinom1, Polinom polinom2) {
         return operationsService.inmultire(polinom1, polinom2);
     }
-
     public Result impartire(Polinom polinom1, Polinom polinom2) {
         return operationsService.impartire(polinom1, polinom2);
     }
-
     public Polinom derivare(Polinom polinom) {
         return operationsService.derivare(polinom);
     }

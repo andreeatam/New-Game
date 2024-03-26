@@ -32,7 +32,7 @@ public class UserService implements IUserService{
 
     @Override
     public String getLoggedInUsername() {
-        return loggedInUsername; // Returnăm numele de utilizator al utilizatorului autentificat
+        return loggedInUsername;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class UserService implements IUserService{
 
     @Override
     public void updateTokens(String username, int newTokens) {
-            if (loggedInUsername != null && loggedInUsername.equals(username)) { // Verifica daca utilizatorul este autentificat
+            if (loggedInUsername != null && loggedInUsername.equals(username)) {
                 User user = userRepository.findByUsername(username);
                 if (user != null) {
                     userRepository.updateTokens(username, newTokens);

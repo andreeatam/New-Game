@@ -8,7 +8,6 @@ package GUI;
 
 public class ConstructGUI extends JFrame {
 
-    //private final CalculatorController calculatorController;
     private JFrame frame;
     private final Color culButoane = new Color(0, 250, 154);
     private static final Font bigFont = new Font("PT Sans", Font.PLAIN, 26);
@@ -113,6 +112,8 @@ public class ConstructGUI extends JFrame {
     public Polinom getRezUserInput2() {
         return ParseFromInput.parsePolinom(tRezultat2.getText());
     }
+
+
 
 }
 

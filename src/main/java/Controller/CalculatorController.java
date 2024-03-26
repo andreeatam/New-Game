@@ -3,239 +3,207 @@ package Controller;
 import GUI.ConstructGUI;
 import Model.Polinom;
 import Model.Result;
-import Model.User;
 import Service.OperationsService;
 import Service.UserService;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.*;
 
 public class CalculatorController implements ActionListener {
 
     private MathController mathController;
     private ConstructGUI constructGUI;
     private OperationsService operationsService;
-
     private UserService userService;
+    private String lastOperationButtonClicked;
+    private boolean isOperationClicked = false;
+    private JButton currentOperationButton;
 
-    private boolean isBValidClicked = false;
-    private boolean isBAdunareClicked = false;
-    private boolean isBScadereClicked = false;
-    private boolean isBInmultireClicked = false;
-    private boolean isBImpartireClicked = false;
-    private boolean isBDerivareClicked = false;
-    private boolean isBIntegrareClicked = false;
-    private boolean isBTokensClicked = false;
-
-    public Polinom raspunsCorect1, raspunsCorect2;
-
-    public CalculatorController(ConstructGUI constructGUI, UserService userService){
+    public CalculatorController(ConstructGUI constructGUI, UserService userService) {
         this.mathController = new MathController();
         this.constructGUI = constructGUI;
         this.operationsService = new OperationsService();
         this.userService = userService;
-        addListeners();
-    }
+        addOperationListeners();
+        addValidationListener();
+        addTokensListener();
 
-    public Polinom getRaspunsCorect1() {
-        return raspunsCorect1;
-    }
-
-    public void setRaspunsCorect1(Polinom raspunsCorect1) {
-        this.raspunsCorect1 = raspunsCorect1;
-    }
-
-    public Polinom getRaspunsCorect2() {
-        return raspunsCorect2;
-    }
-
-    public void setRaspunsCorect2(Polinom raspunsCorect2) {
-        this.raspunsCorect2 = raspunsCorect2;
-    }
-
-    private void addListeners() {
-        constructGUI.bAdunare.addActionListener(this);
-        constructGUI.bScadere.addActionListener(this);
-        constructGUI.bInmultire.addActionListener(this);
-        constructGUI.bImpartire.addActionListener(this);
-        constructGUI.bDerivare.addActionListener(this);
-        constructGUI.bIntegrare.addActionListener(this);
         constructGUI.bValidRasp.addActionListener(this);
+    }
+
+
+    private void addOperationListeners() {
+        constructGUI.bAdunare.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleOperationButton(constructGUI.bAdunare);
+            }
+        });
+
+        constructGUI.bScadere.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleOperationButton(constructGUI.bScadere);
+            }
+        });
+
+        constructGUI.bInmultire.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleOperationButton(constructGUI.bInmultire);
+            }
+        });
+
+        constructGUI.bImpartire.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleOperationButton(constructGUI.bImpartire);
+            }
+        });
+
+        constructGUI.bDerivare.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleOperationButton(constructGUI.bDerivare);
+            }
+        });
+
+        constructGUI.bIntegrare.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleOperationButton(constructGUI.bIntegrare);
+            }
+        });
+    }
+
+    private void handleOperationButton(JButton button) {
+        currentOperationButton = button;
+        lastOperationButtonClicked = button.getText();
+        isOperationClicked = true;
+    }
+
+    private void addTokensListener() {
         constructGUI.bTokens.addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent e) {
-        String s = e.getActionCommand();
-        boolean areRaspCorect = false;
-        addListeners();
+        JButton sourceButton = (JButton) e.getSource();
 
-        if (e.getSource() == constructGUI.bAdunare) {
-            isBAdunareClicked = true;
-        } else if (e.getSource() == constructGUI.bScadere) {
-            isBScadereClicked = true;
-        } else if (e.getSource() == constructGUI.bInmultire) {
-            isBInmultireClicked = true;
-        } else if (e.getSource() == constructGUI.bImpartire) {
-            isBImpartireClicked = true;
-        } else if (e.getSource() == constructGUI.bDerivare) {
-            isBDerivareClicked = true;
-        } else if (e.getSource() == constructGUI.bIntegrare) {
-            isBIntegrareClicked = true;
-        } else if (e.getSource() == constructGUI.bValidRasp) {
-            isBValidClicked = true;
-        } else if (e.getSource() == constructGUI.bTokens) {
-            isBTokensClicked = true;
-        } else {
-            return;
+        if (sourceButton == constructGUI.bTokens) {
+            handleTokensButton();
+        } else if (isOperationButton(sourceButton)) {
+            lastOperationButtonClicked = sourceButton.getName();
+        } else if (sourceButton == constructGUI.bValidRasp) {
+            handleValidation();
         }
-
-        if (isBValidClicked) { //e true
-            if (isBAdunareClicked)
-            {
-                isBAdunareClicked = false; //resetam flag urile
-                setRaspunsCorect1(mathController.adunare(constructGUI.gettPolinom1Input(), constructGUI.gettPolinom2Input()));
-                if (getRaspunsCorect1().convertPolinomToString().equals(constructGUI.getRezUserInput().convertPolinomToString()))
-                {
-                    JOptionPane.showMessageDialog(null, "Raspuns corect");
-
-                    String loggedInUsername = userService.getLoggedInUsername();
-                    if (loggedInUsername != null) {
-                        userService.updateTokens(loggedInUsername, 2);
-                    } else {
-                        System.out.println("Eroare: Utilizatorul nu este autentificat.");
-                    }
-
-                    areRaspCorect = true;
-
-                }
-            } else
-                JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este: " + mathController.adunare(constructGUI.gettPolinom1Input(), constructGUI.gettPolinom2Input()).convertPolinomToString());
-
-
-            } else if (isBScadereClicked) {
-                isBScadereClicked = false;
-                setRaspunsCorect1(mathController.scadere(constructGUI.gettPolinom1Input(), constructGUI.gettPolinom2Input()));
-                if (getRaspunsCorect1().convertPolinomToString().equals(constructGUI.getRezUserInput().convertPolinomToString())) {
-                    JOptionPane.showMessageDialog(null, "Raspuns corect");
-
-                    String loggedInUsername = userService.getLoggedInUsername();
-                    if (loggedInUsername != null) {
-                        userService.updateTokens(loggedInUsername, 2);
-                    } else {
-                        System.out.println("Eroare: Utilizatorul nu este autentificat.");
-                    }
-
-                    areRaspCorect = true;
-                } else
-                    JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este: " + mathController.scadere(constructGUI.gettPolinom1Input(), constructGUI.gettPolinom2Input()).convertPolinomToString());
-
-
-
-            } else if (isBInmultireClicked) {
-                isBInmultireClicked = false; //resetam flag urile
-                setRaspunsCorect1(mathController.inmultire(constructGUI.gettPolinom1Input(), constructGUI.gettPolinom2Input()));
-                if (getRaspunsCorect1().convertPolinomToString().equals(constructGUI.getRezUserInput().convertPolinomToString())) {
-                    JOptionPane.showMessageDialog(null, "Raspuns corect");
-
-                    String loggedInUsername = userService.getLoggedInUsername();
-                    if (loggedInUsername != null) {
-                        userService.updateTokens(loggedInUsername, 5);
-                    } else {
-                        System.out.println("Eroare: Utilizatorul nu este autentificat.");
-                    }
-
-                    areRaspCorect = true;
-                } else
-                    JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este: " + mathController.inmultire(constructGUI.gettPolinom1Input(), constructGUI.gettPolinom2Input()).convertPolinomToString());
-
-
-
-            } else if (isBImpartireClicked) {
-                isBImpartireClicked = false; //resetam flag urile
-                Result rez = mathController.impartire(constructGUI.gettPolinom1Input(), constructGUI.gettPolinom2Input());
-                setRaspunsCorect1(rez.cat);
-                setRaspunsCorect2(rez.rest);
-                if ((getRaspunsCorect1().convertPolinomToString().equals(constructGUI.getRezUserInput().convertPolinomToString())) && (getRaspunsCorect2().convertPolinomToString().equals(constructGUI.getRezUserInput2().convertPolinomToString()))) {
-                    JOptionPane.showMessageDialog(null, "Raspuns corect");
-
-                    String loggedInUsername = userService.getLoggedInUsername();
-                    if (loggedInUsername != null) {
-                        userService.updateTokens(loggedInUsername, 8);
-                    } else {
-                        System.out.println("Eroare: Utilizatorul nu este autentificat.");
-                    }
-
-                    areRaspCorect = true;
-                } else
-                    JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este: " + "cat: " + getRaspunsCorect1().convertPolinomToString() + " ,rest: " + getRaspunsCorect2().convertPolinomToString());
-
-
-            } else if (isBDerivareClicked) {
-                isBDerivareClicked = false; //resetam flag urile
-                setRaspunsCorect1(mathController.derivare(constructGUI.gettPolinom1Input()));
-                setRaspunsCorect2(mathController.derivare(constructGUI.gettPolinom2Input()));
-                if ((getRaspunsCorect1().convertPolinomToString().equals(constructGUI.getRezUserInput().convertPolinomToString())) && (getRaspunsCorect2().convertPolinomToString().equals(constructGUI.getRezUserInput2().convertPolinomToString()))) {
-                    JOptionPane.showMessageDialog(null, "Raspuns corect");
-
-                    String loggedInUsername = userService.getLoggedInUsername();
-                    if (loggedInUsername != null) {
-                        userService.updateTokens(loggedInUsername, 6);
-                    } else {
-                        System.out.println("Eroare: Utilizatorul nu este autentificat.");
-                    }
-
-                    areRaspCorect = true;
-                } else
-                    JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este P1: " + mathController.derivare(constructGUI.gettPolinom1Input()).convertPolinomToString()+ " ,P2: " + mathController.derivare(constructGUI.gettPolinom2Input()).convertPolinomToString());
-
-
-
-            } else if (isBIntegrareClicked) {
-                isBIntegrareClicked = false; //resetam flag urile
-                setRaspunsCorect1(mathController.integrare(constructGUI.gettPolinom1Input()));
-                setRaspunsCorect2(mathController.integrare(constructGUI.gettPolinom2Input()));
-                if ((getRaspunsCorect1().convertPolinomToString().equals(constructGUI.getRezUserInput().convertPolinomToString())) && (getRaspunsCorect2().convertPolinomToString().equals(constructGUI.getRezUserInput2().convertPolinomToString()))) {
-                    JOptionPane.showMessageDialog(null, "Raspuns corect");
-
-                    String loggedInUsername = userService.getLoggedInUsername();
-                    if (loggedInUsername != null) {
-                        userService.updateTokens(loggedInUsername, 8);
-                    } else {
-                        System.out.println("Eroare: Utilizatorul nu este autentificat.");
-                    }
-
-                    areRaspCorect = true;
-                } else
-                    JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este P1: " + mathController.integrare(constructGUI.gettPolinom1Input()).convertPolinomToString() + " P2: " + mathController.integrare(constructGUI.gettPolinom2Input()).convertPolinomToString());
-
-            }
-
-            //if (areRaspCorect) {
-                //updateScorInDB();
-                areRaspCorect = false;
-           // }
-
-            isBValidClicked = false;
-            constructGUI.bValidRasp.removeActionListener(this);
-
-        if(isBTokensClicked){
-                isBTokensClicked =false;
-                String loggedInUsername = userService.getLoggedInUsername();
-                if (loggedInUsername != null) {
-                    int tokens = userService.getTokensForUser(loggedInUsername);
-                    JOptionPane.showMessageDialog(null, "Your Total Tokens: " + tokens);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Eroare: Utilizatorul nu este autentificat.");
-                }
-            }
-        }
-
-
     }
 
 
+    private boolean isOperationButton(JButton button) {
+        return button == constructGUI.bAdunare ||
+                button == constructGUI.bScadere ||
+                button == constructGUI.bInmultire ||
+                button == constructGUI.bImpartire ||
+                button == constructGUI.bDerivare ||
+                button == constructGUI.bIntegrare;
+    }
+
+    private void addValidationListener() {
+        constructGUI.bValidRasp.addActionListener(this);
+    }
+
+    private void handleValidation() {
+        if (lastOperationButtonClicked == null) {
+            JOptionPane.showMessageDialog(null, "Select an operation first!");
+            return;
+        }
+
+        performOperation();
+    }
+
+    private void handleTokensButton() {
+        String loggedInUsername = userService.getLoggedInUsername();
+        if (loggedInUsername != null) {
+            int tokens = userService.getTokensForUser(loggedInUsername);
+            JOptionPane.showMessageDialog(null, "Your Total Tokens: " + tokens);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: User not logged in.");
+        }
+    }
+
+    private void performOperation() {
+        String loggedInUsername = userService.getLoggedInUsername();
+        Polinom result;
+        Polinom result2;
+
+        if (isOperationClicked) {
+            switch (lastOperationButtonClicked) {
+                case "  +  ":
+                    result = mathController.adunare(constructGUI.gettPolinom1Input(), constructGUI.gettPolinom2Input());
+                    if (result.convertPolinomToString().equals(constructGUI.getRezUserInput().convertPolinomToString())) {
+                        JOptionPane.showMessageDialog(null, "Raspuns corect");
+                        userService.updateTokens(loggedInUsername, 2);
+                    } else
+                        JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este: " + mathController.adunare(constructGUI.gettPolinom1Input(), constructGUI.gettPolinom2Input()).convertPolinomToString());
+                    break;
+
+                case "  -  ":
+                    result = mathController.scadere(constructGUI.gettPolinom1Input(), constructGUI.gettPolinom2Input());
+                    if (result.convertPolinomToString().equals(constructGUI.getRezUserInput().convertPolinomToString())) {
+                        JOptionPane.showMessageDialog(null, "Raspuns corect");
+                        userService.updateTokens(loggedInUsername, 2);
+                    } else
+                        JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este: " + mathController.scadere(constructGUI.gettPolinom1Input(), constructGUI.gettPolinom2Input()).convertPolinomToString());
+                    break;
+
+                case "  *  ":
+                    result = mathController.inmultire(constructGUI.gettPolinom1Input(), constructGUI.gettPolinom2Input());
+                    if (result.convertPolinomToString().equals(constructGUI.getRezUserInput().convertPolinomToString())) {
+                        JOptionPane.showMessageDialog(null, "Raspuns corect");
+                        userService.updateTokens(loggedInUsername, 5);
+                    } else
+                        JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este: " + mathController.inmultire(constructGUI.gettPolinom1Input(), constructGUI.gettPolinom2Input()).convertPolinomToString());
+                    break;
+
+                case "  :  ":
+                    Result rez = mathController.impartire(constructGUI.gettPolinom1Input(), constructGUI.gettPolinom2Input());
+                    result = rez.cat;
+                    result2 = rez.rest;
+                    if ((result.convertPolinomToString().equals(constructGUI.getRezUserInput().convertPolinomToString())) && (result2.convertPolinomToString().equals(constructGUI.getRezUserInput2().convertPolinomToString()))) {
+                        JOptionPane.showMessageDialog(null, "Raspuns corect");
+                        userService.updateTokens(loggedInUsername, 6);
+
+                    } else
+                        JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este: " + "cat: " + result.convertPolinomToString() + " ,rest: " + result2.convertPolinomToString());
+                    break;
+
+                case "  '  ":
+                    result = mathController.derivare(constructGUI.gettPolinom1Input());
+                    result2 = mathController.derivare(constructGUI.gettPolinom2Input());
+                    if ((result.convertPolinomToString().equals(constructGUI.getRezUserInput().convertPolinomToString())) && (result2.convertPolinomToString().equals(constructGUI.getRezUserInput2().convertPolinomToString()))) {
+                        JOptionPane.showMessageDialog(null, "Raspuns corect");
+                        userService.updateTokens(loggedInUsername, 6);
+                    } else
+                        JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este P1: " + mathController.derivare(constructGUI.gettPolinom1Input()).convertPolinomToString() + " ,P2: " + mathController.derivare(constructGUI.gettPolinom2Input()).convertPolinomToString());
+                    break;
 
 
+                case "":
+                    result = mathController.integrare(constructGUI.gettPolinom1Input());
+                    result2 = mathController.integrare(constructGUI.gettPolinom2Input());
+                    if ((result.convertPolinomToString().equals(constructGUI.getRezUserInput().convertPolinomToString())) && (result2.convertPolinomToString().equals(constructGUI.getRezUserInput2().convertPolinomToString()))) {
+                        JOptionPane.showMessageDialog(null, "Raspuns corect");
+                        userService.updateTokens(loggedInUsername, 8);
+
+                    } else
+                        JOptionPane.showMessageDialog(null, "Raspuns incorect, " + " corect este P1: " + mathController.integrare(constructGUI.gettPolinom1Input()).convertPolinomToString() + " P2: " + mathController.integrare(constructGUI.gettPolinom2Input()).convertPolinomToString());
+                    break;
+                default:
+                    break;
+            }
+            isOperationClicked = false;
+        }
+    }
+}
 

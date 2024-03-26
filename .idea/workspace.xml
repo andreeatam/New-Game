@@ -4,23 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="39920616-3502-4b4e-93ab-d4f6f69e7c77" name="Changes" comment="third committ">
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+    <list default="true" id="39920616-3502-4b4e-93ab-d4f6f69e7c77" name="Changes" comment="initial commit to new repository">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Controller.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/View.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Login.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Login.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Login.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/CalculatorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/CalculatorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/MathController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/MathController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ConstructGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ConstructGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Operation/Operations.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Polynomial/Monom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Monom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Polynomial/Polinom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Polinom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Register.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Register.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Register.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Results/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Result.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Login.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Register.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Polinom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Polinom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Repository/IUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Repository/IUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Service/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Service/IUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Service/OperationsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Service/OperationsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controller/CalculatorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/CalculatorController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controller/MathController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/MathController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/ConstructGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/ConstructGUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +58,7 @@
     &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;493&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/UltraBook/IdeaProjects/Game2&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
@@ -104,7 +103,10 @@
       <workItem from="1711060534991" duration="12566000" />
       <workItem from="1711152219912" duration="12795000" />
       <workItem from="1711315247424" duration="16503000" />
-      <workItem from="1711364622606" duration="8453000" />
+      <workItem from="1711364622606" duration="9606000" />
+      <workItem from="1711446394716" duration="2062000" />
+      <workItem from="1711448686552" duration="12732000" />
+      <workItem from="1711474015743" duration="6475000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1681122177025</created>
@@ -148,7 +150,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681324630119</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="initial commit to new repository">
+      <created>1711399300568</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1711399300568</updated>
+    </task>
+    <task id="LOCAL-00008" summary="initial commit to new repository">
+      <created>1711399524183</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1711399524183</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,22 +186,7 @@
     <MESSAGE value="second commit" />
     <MESSAGE value="third commit" />
     <MESSAGE value="third committ" />
-    <option name="LAST_COMMIT_MESSAGE" value="third committ" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Controller/CalculatorController.java</url>
-          <line>210</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Controller/CalculatorController.java</url>
-          <line>100</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="initial commit to new repository" />
+    <option name="LAST_COMMIT_MESSAGE" value="initial commit to new repository" />
   </component>
 </project>
