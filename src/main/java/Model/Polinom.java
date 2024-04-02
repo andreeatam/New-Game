@@ -1,5 +1,6 @@
 package Model;
 
+import javax.swing.*;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -35,9 +36,14 @@ public class Polinom {
             return monoms.lastKey();
     }
     public Monom getMaxMonom(){
-        if(monoms.isEmpty())
-            return new Monom(0,0);
-        return monoms.get(monoms.lastKey());
+        try {
+            if (monoms.isEmpty())
+                return new Monom(0, 0);
+            return monoms.get(monoms.lastKey());
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(null, "A apărut o excepție: " + ex.getMessage(), "Eroare", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
     }
 
     public String convertPolinomToString() {

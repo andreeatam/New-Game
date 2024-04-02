@@ -1,12 +1,14 @@
 package Controller;
 
 import GUI.ConstructGUI;
+import Model.Monom;
 import Model.Polinom;
 import Model.Result;
 import Service.OperationsService;
 import Service.UserService;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -205,5 +207,7 @@ public class CalculatorController implements ActionListener {
             isOperationClicked = false;
         }
     }
+
 }
+
 

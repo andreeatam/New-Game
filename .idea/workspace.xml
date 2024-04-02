@@ -4,21 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="39920616-3502-4b4e-93ab-d4f6f69e7c77" name="Changes" comment="initial commit to new repository">
+    <list default="true" id="39920616-3502-4b4e-93ab-d4f6f69e7c77" name="Changes" comment="final updates">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Test/MonomTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Game2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controller/CalculatorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/CalculatorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/MathController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/MathController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ConstructGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ConstructGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ParseFromInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ParseFromInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Monom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Monom.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Model/Polinom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Polinom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Repository/IUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Repository/IUserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Service/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Service/IUserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Service/OperationsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Service/OperationsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controller/CalculatorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/CalculatorController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/MathController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/MathController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GUI/ConstructGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/ConstructGUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/ParseFromInput.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/ParseFromInput.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/Monom.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/Monom.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/Polinom.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/Polinom.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Service/OperationsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Service/OperationsService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +36,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -55,7 +62,7 @@
     &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH&quot;: &quot;202&quot;,
     &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW&quot;: &quot;true&quot;,
     &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.STATE&quot;: &quot;left&quot;,
-    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;493&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;273&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/UltraBook/IdeaProjects/Game2&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
@@ -73,6 +80,28 @@
     <key name="CreateClassDialog.RecentsKey">
       <recent name="Results" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="MonomTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Game2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="Test.MonomTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.MonomTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -106,7 +135,12 @@
       <workItem from="1711364622606" duration="9606000" />
       <workItem from="1711446394716" duration="2062000" />
       <workItem from="1711448686552" duration="12732000" />
-      <workItem from="1711474015743" duration="6475000" />
+      <workItem from="1711474015743" duration="19306000" />
+      <workItem from="1711515109220" duration="4517000" />
+      <workItem from="1711570853516" duration="4748000" />
+      <workItem from="1711576764626" duration="459000" />
+      <workItem from="1711744066672" duration="17000" />
+      <workItem from="1712076243135" duration="4973000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1681122177025</created>
@@ -164,7 +198,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711399524183</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="final updates">
+      <created>1711481064478</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1711481064478</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,6 +228,12 @@
     <MESSAGE value="third commit" />
     <MESSAGE value="third committ" />
     <MESSAGE value="initial commit to new repository" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit to new repository" />
+    <MESSAGE value="final updates" />
+    <option name="LAST_COMMIT_MESSAGE" value="final updates" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Game2$MonomTest.ic" NAME="MonomTest Coverage Results" MODIFIED="1712080917145" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>Test.*</FILTER>
+    </SUITE>
   </component>
 </project>
